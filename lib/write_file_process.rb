@@ -24,7 +24,7 @@ class WriteFileProcess < BaseProcess
 
   def content
     big_content = ''
-    (0..(2**30)).each do
+    (0..(2**20)).each do
       big_content += "#{random_string}\\n"
     end
     big_content

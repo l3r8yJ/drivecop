@@ -13,6 +13,12 @@ class BaseBenchmark
     post_initialize
   end
 
+  def result_to_console
+    printf("#{@process.name} finished for #{@time} seconds.")
+  end
+
+  private
+
   def post_initialize
     validate_process
     bench
@@ -27,9 +33,5 @@ class BaseBenchmark
     start = Time.now
     process.run
     @time = (Time.now - start).to_int
-  end
-
-  def result_to_console
-    printf("#{@process.name} finished for #{@time} seconds.")
   end
 end

@@ -5,7 +5,7 @@ require_relative 'base_process'
 # write_file_process.rb
 # Writing to file process.
 class WriteFileProcess < BaseProcess
-  attr_reader :size
+  attr_reader :size, :content
 
   def run
     write
@@ -13,8 +13,12 @@ class WriteFileProcess < BaseProcess
 
   private
 
+  def post_initialize
+    @content = content
+  end
+
   def write
-    File.write('.bench/bench.txt', content)
+    File.write('.bench/bench.txt', @content)
   end
 
   # @return [Integer] size of created file

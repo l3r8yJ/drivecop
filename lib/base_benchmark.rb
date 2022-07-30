@@ -14,7 +14,7 @@ class BaseBenchmark
   end
 
   def result_to_console
-    printf("#{@process.name} finished for #{@time} seconds.")
+    printf("#{@process.name} finished for #{@time} seconds.\n")
   end
 
   private

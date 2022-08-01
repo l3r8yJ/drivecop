@@ -5,33 +5,31 @@ require_relative 'base_process'
 # write_file_process.rb
 # Writing to file process.
 class WriteFileProcess < BaseProcess
-  attr_reader :size, :content
+  attr_reader :fname
 
   def run
     write
   end
 
+  # @return [Integer] size of created file
+  def content_size
+    File.size(@fname)
+  end
+
   private
 
   def post_initialize
-    @content = content
+    @fname = '.bench/bench.txt'
+    puts "#{self.name}: creating content to write..."
+    start = Time.now
+    puts "Content created for #{(Time.now - start).to_int} seconds."
   end
 
   def write
-    File.write('.bench/bench.txt', @content)
-  end
-
-  # @return [Integer] size of created file
-  def size
-    @size = File.size('.bench/bench.txt')
-  end
-
-  def content
-    big_content = ''
-    (0..(2**17)).each do
-      big_content.concat("#{random_string}\\n")
+    fills = '1'*1048576
+    File.open(@fname, 'w') do |f|
+      9999.times {f.write(fills) }
     end
-    big_content
   end
 
   def random_string

@@ -3,6 +3,8 @@
 require_relative 'lib/write_file_process'
 require_relative 'lib/write_file_benchmark'
 
-process = WriteFileProcess.new('writing txt file')
-benchmark = WriteFileBenchmark.new(process)
-benchmark.result_to_console
+WriteFileBenchmark.new(
+  WriteFileProcess.new(
+    WriteFileProcess.to_s
+  )
+).result_to_console

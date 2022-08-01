@@ -6,10 +6,11 @@ require_relative 'base_benchmark'
 class WriteFileBenchmark < BaseBenchmark
   attr_reader :file_size, :speed
 
-  # @param process [WriteFileProcess]
+  # @param process [WriteFileProcess] process for bench
   def initialize(process)
     super
-    @file_size = process.size
+    @file_size = process.content_size
+    clearing(process)
   end
 
   def result_to_console
@@ -17,21 +18,22 @@ class WriteFileBenchmark < BaseBenchmark
     printf("Average speed: #{@speed} bytes/sec.\n")
   end
 
-  private
-
-  def calc_speed
-    @speed = @time / @file_size
+  def speed
+    @time / @file_size
   end
 
-  def post_initialize
-    super
-    validate_process
+  private
+
+  def clearing(process)
+    puts "Post bench clearing..."
+    File.delete(process.fname)
+    puts "All trash deleted!"
   end
 
   def validate_process
     super
-    unless @process.instance_of?(WriteFileProcess.class)
-      raise ArgumentError, 'Argument must be instance of WriteFileProcess'
+    unless @process.is_a? WriteFileProcess
+      raise ArgumentError, "Process must be an #{WriteFileProcess.class} instance."
     end
   end
 end

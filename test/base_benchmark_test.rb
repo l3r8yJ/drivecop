@@ -1,17 +1,15 @@
-# frozen_string_literal: true
-
-require 'minitest'
 require 'minitest/autorun'
-require 'minitest/reporters'
 
 class BaseBenchmarkTest < Minitest::Test
   def setup
-    @process = SleepingProcess.new('sleeping')
-    @benchmark = BaseBenchmark.new(@process)
+    # Do nothing
   end
 
-  def sleeping_time_5_seconds_bench
-    expected = 5
-    expect(@benchmark.time).eql?(expected)
+  def teardown
+    # Do nothing
+  end
+
+  def test
+    skip 'Not implemented'
   end
 end
